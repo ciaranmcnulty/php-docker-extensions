@@ -33,5 +33,16 @@ jobs:
       matrix:
         tag: ${{ fromJson(needs.generate-matrix.outputs.tags) }}
     steps:
-      - name: Test
-        run: echo ${{ matrix.tag }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Test image
+        uses: docker/bake-action@master
+        with:
+          targets: test
+
+      - name: Push image
+        uses: docker/bake-action@master
