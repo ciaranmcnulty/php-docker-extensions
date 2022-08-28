@@ -23,3 +23,15 @@ jobs:
           echo ::set-output name=tags::${TAGS}
     outputs:
       tags: ${{ steps.get-tags.outputs.tags }}
+
+  run-tests:
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    name: Build images
+    strategy:
+      fail-fast: true
+      matrix:
+        tag: ${{ needs.build.outputs.tags }}
+    steps:
+      - name: Test
+        run: echo ${{ matrix.tag }}
