@@ -33,6 +33,9 @@ jobs:
       matrix:
         tag: ${{ fromJson(needs.generate-matrix.outputs.tags) }}
     steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
