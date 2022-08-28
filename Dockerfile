@@ -15,5 +15,5 @@ COPY --link --from=compiler /usr/local/etc/php/conf.d /usr/local/etc/php/conf.d
 
 
 FROM php:${TAG} AS xdebug-test
-COPY --link --from=output / /
+COPY --link --from=xdebug-output / /
 RUN php -m | grep "xdebug"
