@@ -1,0 +1,25 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    name: Configure matrix
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+
+      - name: Get tags
+        id: get-tags
+        run: |
+          export TAGS=$(php get-tags.php)
+          echo ${TAGS}
+          echo ::set-output name=tags::${TAGS}
+    outputs:
+      tags: ${{ steps.get-tags.outputs.tags }}
