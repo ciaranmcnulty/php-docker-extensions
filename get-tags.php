@@ -4,6 +4,8 @@
 $nextPage = "https://hub.docker.com/v2/repositories/library/php/tags?page_size=100";
 $minVersion = "8.1.0";
 
+$tags = [];
+
 while (is_string($nextPage)) {
     file_put_contents('php://stderr', "Fetching from $nextPage\n");
     $data = json_decode(file_get_contents($nextPage), true);
@@ -37,7 +39,9 @@ while (is_string($nextPage)) {
         }
 
         if ($is_supported) {
-            file_put_contents('php://stdout', $result['name']. "\n");
+           $tags[] = $result['name'];
         }
     }
 }
+
+file_put_contents('php://stdout', json_encode($tags));

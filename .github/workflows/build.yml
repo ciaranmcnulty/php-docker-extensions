@@ -31,7 +31,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        tag: ${{ needs.build.outputs.tags }}
+        tag: ${{ fromJson(needs.build.outputs.tags) }}
     steps:
       - name: Test
         run: echo ${{ matrix.tag }}
