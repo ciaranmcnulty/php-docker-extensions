@@ -47,3 +47,10 @@ jobs:
         with:
           targets: test
           set: _tagged.args.TAG=${{ matrix.tag }}
+
+      - name: Push image
+        uses: docker/bake-action@master
+        if: ${{ github.ref == 'main' }}
+        with:
+          push: true
+          set: _tagged.args.TAG=${{ matrix.tag }}
