@@ -43,6 +43,4 @@ jobs:
         uses: docker/bake-action@master
         with:
           targets: test
-
-      - name: Push image
-        uses: docker/bake-action@master
+          set: _tagged.args.TAG=${{ matrix.tag }}
