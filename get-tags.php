@@ -3,6 +3,7 @@
 # page size is capped at 100
 $nextPage = "https://hub.docker.com/v2/repositories/library/php/tags?page_size=100";
 $minVersion = "8.1.0";
+$maxVersion = "8.2.0";
 
 $tags = [];
 
@@ -18,7 +19,7 @@ while (is_string($nextPage)) {
             $is_supported = version_compare($matches[0], $minVersion, 'ge');
         }
 
-        if (preg_match('/RC[0-9]/', $result['name']) || str_contains('rc-', $result['name'])) {
+        if (preg_match('/RC[0-9]/', $result['name']) || str_contains($result['name'], 'rc-')) {
             $is_supported = false;
         }
 
