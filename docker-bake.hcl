@@ -10,19 +10,23 @@ group "default" {
 
 target "xdebug" {
   target = "xdebug"
-  inherits = ["_tagged"]
+  inherits = ["_template"]
   tags = [
-    "ciaranmcnulty/php-ext-xdebug:${PHP_IMAGE_TAG}"
+    "ciaranmcnulty/php-ext-xdebug:${PHP_IMAGE_TAG}",
   ]
 }
 
 target "test" {
   target = "test"
-  inherits = ["_tagged"]
+  inherits = ["_template"]
 }
 
-target "_tagged" {
+target "_template" {
   args = {
-    TAG = "${PHP_IMAGE_TAG}"
+    TAG = "${PHP_IMAGE_TAG}",
   }
+  platforms = [
+    "linux/arm64",
+    "linux/amd64",
+  ]
 }
