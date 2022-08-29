@@ -48,6 +48,14 @@ jobs:
           targets: test
           set: _tagged.args.TAG=${{ matrix.tag }}
 
+
+      - name: Log in to DockerHub
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
       - name: Push image
         uses: docker/bake-action@master
         if: ${{ github.ref == 'refs/heads/main' }}
