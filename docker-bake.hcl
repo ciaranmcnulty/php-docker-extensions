@@ -9,7 +9,7 @@ group "default" {
 }
 
 target "xdebug" {
-  target = "xdebug-output"
+  target = "xdebug"
   inherits = ["_tagged"]
   tags = [
     "ciaranmcnulty/php-ext-xdebug:${PHP_IMAGE_TAG}"
