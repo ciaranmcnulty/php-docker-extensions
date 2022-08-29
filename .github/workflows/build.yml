@@ -28,6 +28,8 @@ jobs:
     needs: generate-matrix
     runs-on: ubuntu-latest
     name: Build images
+    env:
+      TAG: ${{ matrix.tag }}
     strategy:
       fail-fast: false
       matrix:
@@ -46,8 +48,6 @@ jobs:
         uses: docker/bake-action@master
         with:
           targets: test
-          set: _tagged.args.TAG=${{ matrix.tag }}
-
 
       - name: Log in to DockerHub
         if: ${{ github.ref == 'refs/heads/main' }}
@@ -61,4 +61,3 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           push: true
-          set: _tagged.args.TAG=${{ matrix.tag }}
