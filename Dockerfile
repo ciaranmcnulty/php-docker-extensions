@@ -14,6 +14,6 @@ COPY --link --from=compiler /usr/local/lib/php/extensions /usr/local/lib/php/ext
 COPY --link --from=compiler /usr/local/etc/php/conf.d /usr/local/etc/php/conf.d
 
 
-FROM php:${TAG} AS xdebug-test
+FROM php:${TAG} AS test
 COPY --link --from=xdebug-output / /
 RUN php -m | grep "xdebug"

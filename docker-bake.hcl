@@ -16,14 +16,8 @@ target "xdebug" {
   ]
 }
 
-group "test" {
-  targets = [
-    "xdebug-test",
-  ]
-}
-
-target "xdebug-test" {
-  target = "xdebug-test"
+target "test" {
+  target = "test"
   inherits = ["_tagged"]
 }
 

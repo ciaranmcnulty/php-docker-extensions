@@ -50,7 +50,7 @@ jobs:
 
       - name: Push image
         uses: docker/bake-action@master
-        if: ${{ github.ref == 'main' }}
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
           push: true
           set: _tagged.args.TAG=${{ matrix.tag }}
