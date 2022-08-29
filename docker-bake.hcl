@@ -1,4 +1,4 @@
-variable "TAG" {
+variable "PHP_IMAGE_TAG" {
   default="8.1"
 }
 
@@ -12,7 +12,7 @@ target "xdebug" {
   target = "xdebug-output"
   inherits = ["_tagged"]
   tags = [
-    "ciaranmcnulty/php-ext-xdebug:${TAG}"
+    "ciaranmcnulty/php-ext-xdebug:${PHP_IMAGE_TAG}"
   ]
 }
 
@@ -23,6 +23,6 @@ target "test" {
 
 target "_tagged" {
   args = {
-    TAG = "${TAG}"
+    TAG = "${PHP_IMAGE_TAG}"
   }
 }
