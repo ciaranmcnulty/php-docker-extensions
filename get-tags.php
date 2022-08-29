@@ -19,7 +19,7 @@ while (is_string($nextPage)) {
             $is_supported = version_compare($matches[0], $minVersion, 'ge');
         }
 
-        if (preg_match('/RC[0-9]/', $result['name']) || str_contains($result['name'], 'rc-')) {
+        if (preg_match('/RC[0-9]/', $result['name']) || str_contains($result['name'], 'rc')) {
             $is_supported = false;
         }
 
