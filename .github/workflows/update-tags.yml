@@ -26,9 +26,8 @@ jobs:
 
       - name: Make PR if needed
         run: |
-          ls -al && \
           git diff --exit-code tags.json \ 
-          || git branch -b update-tags \
+          || git checkout -b update-tags \
           && git add tags.json \
           && git commit --all --message="Update tags"
           && git push origin update-tags
