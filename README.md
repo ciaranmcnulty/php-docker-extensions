@@ -19,6 +19,7 @@ will make this slightly more efficient).
 FROM php:8.1
 
 COPY --link --from=ciaranmcnulty/php-ext-xdebug:8.1 / /
+COPY --link --from=ciaranmcnulty/php-ext-pcntl:8.1 / /
 ```
 
 NOTE it is important that the tag for the official image and the extension match
@@ -36,14 +37,16 @@ Contributions to expand this support will definitely be considered
 
 ## Supported extensions
 
-| PHP extension | Docker image |
-|---------------|--------------|
+| PHP extension | Docker image                                                                                          |
+|---------------|-------------------------------------------------------------------------------------------------------|
+| bcmath        | [ciaranmcnulty/php-ext-bcmath](https://hub.docker.com/repository/docker/ciaranmcnulty/php-ext-bcmath) |
+| pcntl         | [ciaranmcnulty/php-ext-pcntl](https://hub.docker.com/repository/docker/ciaranmcnulty/php-ext-pcntl)   |
 | xdebug        | [ciaranmcnulty/php-ext-xdebug](https://hub.docker.com/repository/docker/ciaranmcnulty/php-ext-xdebug) |
 
 ### Adding an extension
 
 We'd love to see more extensions supported
 
- * Create a new folder representing the extension's name
+ * Create a new folder representing the extension's name (e.g. `ext-foo`)
  * Add a Dockerfile to that folder that builds the extension
  * Edit `docker-bake.hcl` to add that image to the build
