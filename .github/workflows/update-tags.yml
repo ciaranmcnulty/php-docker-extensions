@@ -26,7 +26,7 @@ jobs:
 
       - name: Make PR if needed
         run: |
-          git diff --exit-code tags.json
+          git diff --exit-code tags.json \
           || git checkout -b update-tags
 #          && git add tags.json
 #          && git commit --message "Update tags"
