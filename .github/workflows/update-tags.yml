@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '30 7 * * *'
+  push:
+    branches: [main]
 
 jobs:
   nightly-builds:
@@ -24,6 +26,7 @@ jobs:
 
       - name: Make PR if needed
         run: |
+          ls -al && \
           git diff --exit-code tags.json \ 
           || git branch -b update-tags \
           && git add tags.json \
