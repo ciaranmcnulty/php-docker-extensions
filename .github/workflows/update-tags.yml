@@ -15,22 +15,16 @@ jobs:
       - name: Check out source
         uses: actions/checkout@master
 
-      - name: Configure Git user
-        run: git config user.email '${{ secrets.GIT_USER_EMAIL }}' && git config user.name '${{ secrets.GIT_USER_NAME }}'
-
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
 
       - name: Update tags
         run: php get-tags.php > tags.json
 
-      - name: Make PR if needed
-        run: |
-          git diff --exit-code tags.json \
-          || git checkout -b update-tags \
-          && git add tags.json \
-          && git commit --message "Update tags" \
-          && git push --force origin update-tags \
-          && hub pull-request --head update-tags --message ':robot: Update tags'
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: Automatic tag update
+          title: ":robot: Tag update"
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
