@@ -45,4 +45,4 @@ while (is_string($nextPage)) {
     }
 }
 
-file_put_contents('php://stdout', json_encode($tags));
+file_put_contents('php://stdout', json_encode($tags, JSON_PRETTY_PRINT));
