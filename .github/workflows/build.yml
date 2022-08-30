@@ -51,6 +51,9 @@ jobs:
         uses: docker/bake-action@master
         with:
           targets: test
+          set: |
+            test.cache-from=type=gha,scope=${{ matrix.tag }}
+            test.cache-to=type=gha,mode=max,scope=${{ matrix.tag }}
 
       - name: Push image
         uses: docker/bake-action@master
