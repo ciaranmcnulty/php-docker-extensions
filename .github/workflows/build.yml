@@ -12,15 +12,10 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-
-      - name: Get tags
+      - name: Read tags file
         id: get-tags
         run: |
-          export TAGS=$(php get-tags.php)
-          echo ${TAGS}
-          echo ::set-output name=tags::${TAGS}
+          echo ::set-output name=tags::$(cat tags.json)
     outputs:
       tags: ${{ steps.get-tags.outputs.tags }}
 

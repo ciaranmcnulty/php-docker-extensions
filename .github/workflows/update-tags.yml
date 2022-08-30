@@ -1,0 +1,33 @@
+name: Update tags
+
+on:
+  schedule:
+    - cron: '30 7 * * *'
+
+jobs:
+  nightly-builds:
+    runs-on: ubuntu-latest
+    name: Update
+    steps:
+      - name: Check out source
+        uses: actions/checkout@master
+
+      - name: Configure Git user
+        run: git config user.email '${{ secrets.GIT_USER_EMAIL }}' && git config user.name '${{ secrets.GIT_USER_NAME }}'
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+
+      - name: Update tags
+        run: php get-tags.php > tags.json
+
+      - name: Make PR if needed
+        run: |
+          git diff --exit-code tags.json \ 
+          || git branch -b update-tags \
+          && git add tags.json \
+          && git commit --all --message="Update tags"
+          && git push origin update-tags
+          hub pull-request --head update-tags --message ':robot: Update tags'
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
