@@ -16,12 +16,16 @@ target "test" {
   inherits = ["_common"]
   target = "test"
   contexts = {
-    xdebug = "target:xdebug"
+    bcmath = "target:bcmath",
+    pcntl = "target:pcntl",
+    xdebug = "target:xdebug",
   }
 }
 
 group "default" {
   targets = [
+    "bcmath",
+    "pcntl",
     "xdebug",
   ]
 }
@@ -39,9 +43,25 @@ target "_extension" {
   }
 }
 
+target "bcmath" {
+  inherits = ["_extension"]
+  context = "ext-bcmath"
+  tags = [
+    "ciaranmcnulty/php-ext-bcmath:${PHP_IMAGE_TAG}",
+  ]
+}
+
+target "pcntl" {
+  inherits = ["_extension"]
+  context = "ext-pcntl"
+  tags = [
+    "ciaranmcnulty/php-ext-pcntl:${PHP_IMAGE_TAG}",
+  ]
+}
+
 target "xdebug" {
   inherits = ["_extension"]
-  context = "xdebug"
+  context = "ext-xdebug"
   tags = [
     "ciaranmcnulty/php-ext-xdebug:${PHP_IMAGE_TAG}",
   ]

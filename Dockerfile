@@ -9,5 +9,11 @@ RUN rm -rf /usr/local/etc/php/conf.d/*.ini
 # Checks all the extensions are registerable via COPY
 FROM php-base AS test
 
+COPY --link --from=bcmath / /
+RUN php -m | grep "bcmath"
+
+COPY --link --from=pcntl / /
+RUN php -m | grep "pcntl"
+
 COPY --link --from=xdebug / /
 RUN php -m | grep "xdebug"
